@@ -5,8 +5,7 @@
 
 
 $(function () {
-
-
+  var currentTime = dayjs(); //currently used in functions: currentDay,
 
 
   // TODO: Add a listener for click events on the save button. This code should
@@ -15,22 +14,64 @@ $(function () {
   // function? How can DOM traversal be used to get the "hour-x" id of the
   // time-block containing the button that was clicked? How might the id be
   // useful when saving the description in local storage?
+
+
+
+
+
   //
   // TODO: Add code to apply the past, present, or future class to each time
   // block by comparing the id to the current hour. HINTS: How can the id
   // attribute of each time-block be used to conditionally add or remove the
   // past, present, and future classes? How can Day.js be used to get the
   // current hour in 24-hour time?
+  function changeTimeBlock (time) {
+    var shortTime = time.format("HH");
+    //console.log(shortTime)
+    //idRef = "hour-" + shortTime;
+    //console.log(idRef)
+    for (i=9; i <= 15; i++) {
+      
+      var curRowID = "hour-" + i
+      console.log(curRowID)
+      const curRow = document.getElementById(curRowID);
+      
+      if (i < shortTime) {
+        console.log("gray")
+        curRow.className = "row time-block past";
+      }
+      else if (i == shortTime) {
+        console.log("red")
+        curRow.className = "row time-block present";
+      }
+      else if (i > shortTime) {
+        console.log("green")
+        curRow.className = "row time-block future";
+      }
+    }
+  }
+
+
+
+
+
   //
   // TODO: Add code to get any user input that was saved in localStorage and set
   // the values of the corresponding textarea elements. HINT: How can the id
   // attribute of each time-block be used to do this?
+
+
+
+
+
   //
   // TODO: Add code to display the current date in the header of the page.
-  var currentTime = dayjs();
-  //console.log(currentTime.format("dddd"))
   function currentDay (day) {
-    console.log(day.format("dddd"))
+    const currentDay = document.getElementById("currentDay");
+
+    currentDay.textContent = day.format("dddd")
   }
-  currentDay(currentTime)
+
+  currentDay(currentTime);
+  changeTimeBlock(currentTime);
 });
