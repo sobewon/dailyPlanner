@@ -27,11 +27,8 @@ $(function () {
   // current hour in 24-hour time?
   function changeTimeBlock (time) {
     var shortTime = time.format("HH");
-    //console.log(shortTime)
-    //idRef = "hour-" + shortTime;
-    //console.log(idRef)
+
     for (i=9; i <= 15; i++) {
-      
       var curRowID = "hour-" + i
       console.log(curRowID)
       const curRow = document.getElementById(curRowID);
@@ -51,7 +48,22 @@ $(function () {
     }
   }
 
+  function changeData () {
+    const timeBlocks = document.querySelectorAll(".time-block");
 
+    // GRADER PLEASE READ
+    // is there a better way to do the for loop below? 
+    //I feel like there is but I can't seem to figure out how it should be
+    for (i = 0; i < 9; i++) {
+      const textarea = timeBlocks[i].querySelector("textarea");
+      const saveBtn = timeBlocks[i].querySelector("button");
+      const hour = timeBlocks[i].id;
+
+      saveBtn.addEventListener("click", function() {
+        localStorage.setItem(hour, textarea.value);
+      });
+    }
+  }
 
 
 
@@ -74,4 +86,5 @@ $(function () {
 
   currentDay(currentTime);
   changeTimeBlock(currentTime);
+  changeData()
 });
